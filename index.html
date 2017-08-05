@@ -7,7 +7,7 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="hover-console"></div>
     <div id="console"></div>
-    <div id="main" style="height:4000px"></div>
+    <div id="main" style="height:1000px"></div>
     <!-- ECharts单文件引入 -->
     <script src="http://localhost/echart/echarts.js"></script>
     <script src="TreeGraph.js"></script>
@@ -24,7 +24,8 @@
         require(
             [
                 'echarts',
-                'echarts/chart/tree' // 使用柱状图就加载bar模块，按需加载
+                'echarts/chart/tree',
+                'echarts/chart/wordCloud' // 使用柱状图就加载bar模块，按需加载
             ],
             function (ec) {
                 // 基于准备好的dom，初始化echarts图表
@@ -39,15 +40,14 @@
                     {id:18,pId:12,name:"HR"},
                 ];
                 var data=getData(zNodes)
-                newTree(myChart,data);
+                setData(myChart,data,0);
                 
                 myChart.on('click', function(param) {
                     var temp = JSON.parse(JSON.stringify(zNodes));
-                    console.log(temp);
+                    //console.log(temp);
                     var itemSelected = {};
                     itemSelected.normal = {};
                     itemSelected.normal.borderWidth = 2;
-                    itemSelected.normal.color = "blue";
                     for (var i = 0; i < temp.length; i++) {
                         if(temp[i].name == param.name) {
                             temp[i].itemStyle = itemSelected;
@@ -55,7 +55,7 @@
                     }
                     var data=getData(temp)
                     //console.log("data:"+JSON.stringify(data));
-                    restData(myChart,data);
+                    setData(myChart,data,0);
                 });
             }
         );

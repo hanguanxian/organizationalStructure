@@ -73,7 +73,7 @@ function getData(zNodes){
 	var mytree=new treeMenu(zNodes)
 	return new Array(mytree.init(1));
 }
-function newTree(myChart,data){
+function setData(myChart,data){
     var option = {
         title : {
             text: '组织架构图',
@@ -147,9 +147,6 @@ function newTree(myChart,data){
             }        
         ]
     };
-    myChart.setOption(option);
+    myChart.setOption(option,true);
 }
 
-function restData(myChart,data){
-    myChart.setOption(data,true);
-}
