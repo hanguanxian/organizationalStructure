@@ -76,15 +76,33 @@ function getData(zNodes){
 function newTree(myChart,data){
     var option = {
         title : {
-            text: '手机品牌',
-            subtext: '线、节点样式'
+            text: '组织架构图',
+            subtext: '景源'
         },
         tooltip : {
             trigger: 'item',
             padding: 5,
-            formatter: function (params,ticket,callback) {
-                var res = '科技:' + params[0];
+            formatter: function (params) {
+                var res = '景源组织架构图: <br/>&nbsp;&nbsp;' + params.name;
                 return res;
+            }
+        },
+        toolbox: {
+            show : true,
+            orient: 'horizontal',      // 布局方式，默认为水平布局，可选为： 'horizontal' ¦ 'vertical'
+            x: 50,  // 水平安放位置，默认为全图右对齐，可选为 'center' ¦ 'left' ¦ 'right'  
+            y: 50,
+            itemGap:  10, //各个item之间的间隔
+            itemSize: 16, //工具箱icon大小，单位（px）
+            feature : {
+                myTool : {
+                    show : true,
+                    title : '自定义扩展方法',
+                    icon : 'http://echarts.baidu.com/echarts2/doc/asset/img/echarts-logo.png',
+                    onclick : function (){
+                        alert('myToolHandler')
+                    }
+                }
             }
         },
         series : [
