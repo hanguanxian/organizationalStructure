@@ -70,7 +70,10 @@
         $(function () {
             $("#add").click(function(e){
                 e.preventDefault();
-                
+                if(itemSelected == null){
+                    swal('请选择一个部门');
+                    return;
+                } 
                 swal({
                     title: '添加部门',
                     input: 'text',
@@ -85,12 +88,17 @@
                         zNodes.push(tempData);//TODO 提交到后台
                         var data=getData(zNodes)
                         setData(myChart,data);
+                        itemSelected = null;
                     }
                 })
             })
 
             $("#delete").click(function(e){
                 e.preventDefault();
+                if(itemSelected == null){
+                    swal('请选择一个部门');
+                    return;
+                } 
                 //TODO 提交到后台
                 swal({
                   text: "确定删除该部门及下属部门？",
@@ -106,8 +114,9 @@
                             zNodes.splice(i,1);
                         }
                     }
-                    var data=getData(zNodes)
+                    var data=getData(zNodes);
                     setData(myChart,data);
+                    itemSelected = null;
                 })
                 
             })
