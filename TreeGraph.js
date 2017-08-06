@@ -113,7 +113,7 @@ function setData(myChart,data){
                 rootLocation: {x: 'center',y: 100}, // 根节点位置  {x: 'center',y: 10}
                 nodePadding: 40,//节点间距
                 symbol: 'emptyRectangle',
-                symbolSize: 50,
+                symbolSize: 60,
                 roam: true,
                 itemStyle: {
                     normal: {
@@ -122,10 +122,6 @@ function setData(myChart,data){
                         label: {
                             show: true,
                             position: 'inside',
-                            // formatter : function (params) {   
-                            //     console.log(params);                      
-                            //     return params.name  + '%';
-                            // },
                             textStyle: {
                                 color: '#000',
                                 fontSize: 15,
@@ -140,7 +136,9 @@ function setData(myChart,data){
                     },
                     emphasis: {
                         color: '#fff',
-                        borderWidth: 5
+                        borderWidth: 2,
+                        barBorderColor: "#fff",
+                        borderColor: "red"
                     }
                 },
                 data: data
