@@ -2,24 +2,65 @@
 <head>
     <meta charset="utf-8">
     <title>ECharts</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style type="text/css">
+        * {
+        box-sizing: border-box; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-text-size-adjust:none;
+        -webkit-overflow-scrolling: touch;
+        }
+        html, h1, h2, h3, h4, p { margin:0; padding:0; font-weight: normal; }
+        ul, ol { margin:0; list-style: none; padding: 0; }
+        a { text-decoration:none; color: black; border:none; outline: none; }
+        img { border:none; }
+        input, button { -webkit-appearance: none; background: none; padding: 0; outline-style: none; border: none; }
+        form, table { margin:0; padding:0; }
+        em, i { font-style: normal; }
+
+        #controls {
+            position: absolute;
+            z-index: 2;
+            right: 10%;
+            top: 5%;
+            background-color: darkgrey;
+            padding: 10px;
+        }
+        #controls .icon {
+            margin: 0 5px;
+        }
+        #controls .icon img { width: 20px; vertical-align: sub; }
+        #controls .info { 
+            margin-top: 10px;
+            text-align: center; 
+        }
+    </style>
 </head>
+
 <body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="hover-console"></div>
-    <div id="console"></div>
+    <div id="controls">
+        <a id="add" class="icon" href="#"><img src="images/add.png"/> 添加部门</a>
+        <a id="add" class="icon" href="#"><img src="images/delete.png"/> 删除部门</a>
+        <div class="info" id="info">董事长 权利最大的人</div>
+    </div>
+
     <div id="main" style="height:100vh"></div>
-    <!-- ECharts单文件引入 -->
-    <script src="http://localhost/echart/echarts.js"></script>
+    <script src="zepto.min.js"></script>
+    <script src="echarts.js"></script>
     <script src="TreeGraph.js"></script>
     <script type="text/javascript">
-        
+        $(function () {
+            $("#add").click(function(e){
+                e.preventDefault();
+                console.log(e);
+            })
+        })
         // 路径配置
         require.config({
             paths: {
                 echarts: 'http://localhost/echart'
             }
         });
-        
         // 使用
         require(
             [
@@ -44,7 +85,7 @@
                 
                 myChart.on('click', function(param) {
                     var temp = JSON.parse(JSON.stringify(zNodes));
-                    //console.log(temp);
+                    console.log(param);
                     var itemSelected = {};
                     itemSelected.normal = {};
                     itemSelected.normal.borderWidth = 2;
