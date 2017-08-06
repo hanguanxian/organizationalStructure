@@ -40,7 +40,7 @@
     <div id="hover-console"></div>
     <div id="controls">
         <a id="add" class="icon" href="#"><img src="images/add.png"/> 添加部门</a>
-        <a id="add" class="icon" href="#"><img src="images/delete.png"/> 删除部门</a>
+        <a id="delete" class="icon" href="#"><img src="images/delete.png"/> 删除部门</a>
         <div class="info" id="info">董事长 权利最大的人</div>
     </div>
 
@@ -49,10 +49,45 @@
     <script src="echarts.js"></script>
     <script src="TreeGraph.js"></script>
     <script type="text/javascript">
+        var itemStyle = {};
+            itemStyle.normal = {};
+            itemStyle.normal.borderWidth = 2;
+            itemStyle.normal.borderColor = "red"; 
+        var itemSelected = {};
+        var myChart;
+        var zNodes=[
+            {id:1,pId:0,name:"董事长"},
+            {id:11,pId:1,name:"经理"},
+            {id:12,pId:1,name:"副总"},
+            {id:13,pId:1,name:"秘书"},
+            {id:16,pId:11,name:"财务经理"},
+            {id:27,pId:11,name:"人事经理"},
+            {id:18,pId:12,name:"HR"},
+        ];
         $(function () {
             $("#add").click(function(e){
                 e.preventDefault();
-                console.log(e);
+                var tempData = {id:14,pId:1,name:"董事长夫人"};
+                
+                zNodes.push(tempData);//TODO 提交到后台
+
+                var data=getData(zNodes)
+
+                setData(myChart,data);
+            })
+
+            $("#delete").click(function(e){
+                e.preventDefault();
+                //TODO 提交到后台
+                for (var i = 0; i < zNodes.length; i++) {
+                    if(zNodes[i].id == itemSelected.id) {
+                        zNodes.splice(i,1);
+                    }
+                }
+                
+                var data=getData(zNodes)
+
+                setData(myChart,data);
             })
         })
         // 路径配置
@@ -65,38 +100,30 @@
         require(
             [
                 'echarts',
-                'echarts/chart/tree',
-                'echarts/chart/wordCloud' // 使用柱状图就加载bar模块，按需加载
+                'echarts/chart/tree'
             ],
             function (ec) {
                 // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main')); 
-                var zNodes=[
-                    {id:1,pId:0,name:"董事长"},
-                    {id:11,pId:1,name:"经理"},
-                    {id:12,pId:1,name:"副总"},
-                    {id:13,pId:1,name:"秘书"},
-                    {id:16,pId:11,name:"财务经理"},
-                    {id:27,pId:11,name:"人事经理"},
-                    {id:18,pId:12,name:"HR"},
-                ];
+                myChart = ec.init(document.getElementById('main'));
                 var data=getData(zNodes)
-                setData(myChart,data,0);
+                itemSelected = data[0];
+                itemSelected.itemStyle = itemStyle;
+
+                setData(myChart,data);
                 
                 myChart.on('click', function(param) {
                     var temp = JSON.parse(JSON.stringify(zNodes));
-                    console.log(param);
-                    var itemSelected = {};
-                    itemSelected.normal = {};
-                    itemSelected.normal.borderWidth = 2;
-                    itemSelected.normal.borderColor = "red";
+                    //console.log(param);
 
                     for (var i = 0; i < temp.length; i++) {
                         if(temp[i].name == param.name) {
-                            temp[i].itemStyle = itemSelected;
+                            $("#info").text(temp[i].name);
+                            temp[i].itemStyle = itemStyle;
+                            break;
                         }
                     }
-                    var data=getData(temp)
+                    itemSelected = param.data;
+                    var data=getData(temp);
                     //console.log("data:"+JSON.stringify(data));
                     setData(myChart,data,0);
                 });
