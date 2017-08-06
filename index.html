@@ -4,6 +4,7 @@
     <title>ECharts</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css">
     <style type="text/css">
         * {
         box-sizing: border-box; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-text-size-adjust:none;
@@ -46,6 +47,8 @@
 
     <div id="main" style="height:100vh"></div>
     <script src="zepto.min.js"></script>
+    <script src="sweetalert2.min.js"></script>
+    
     <script src="echarts.js"></script>
     <script src="TreeGraph.js"></script>
     <script type="text/javascript">
@@ -67,27 +70,46 @@
         $(function () {
             $("#add").click(function(e){
                 e.preventDefault();
-                var tempData = {id:14,pId:1,name:"董事长夫人"};
                 
-                zNodes.push(tempData);//TODO 提交到后台
-
-                var data=getData(zNodes)
-
-                setData(myChart,data);
+                swal({
+                    title: '添加部门',
+                    input: 'text',
+                    showCloseButton: true,
+                    confirmButtonText: '确定'
+                }).then(function (value) {
+                    if(value) {
+                        var tempData = {};
+                        tempData.pId = itemSelected.id;
+                        tempData.id = itemSelected.id + 1;
+                        tempData.name = value; 
+                        zNodes.push(tempData);//TODO 提交到后台
+                        var data=getData(zNodes)
+                        setData(myChart,data);
+                    }
+                })
             })
 
             $("#delete").click(function(e){
                 e.preventDefault();
                 //TODO 提交到后台
-                for (var i = 0; i < zNodes.length; i++) {
-                    if(zNodes[i].id == itemSelected.id) {
-                        zNodes.splice(i,1);
+                swal({
+                  text: "确定删除该部门及下属部门？",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '删除',
+                  cancelButtonText: '取消'
+                }).then(function () {
+                    for (var i = 0; i < zNodes.length; i++) {
+                        if(zNodes[i].id == itemSelected.id) {
+                            zNodes.splice(i,1);
+                        }
                     }
-                }
+                    var data=getData(zNodes)
+                    setData(myChart,data);
+                })
                 
-                var data=getData(zNodes)
-
-                setData(myChart,data);
             })
         })
         // 路径配置
