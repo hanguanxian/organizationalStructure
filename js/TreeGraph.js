@@ -76,8 +76,7 @@ function getData(zNodes){
 function setData(myChart,data){
     var option = {
         title : {
-            text: '组织架构图',
-            subtext: '景源'
+            text: '景源组织架构图'
         },
         tooltip : {
             trigger: 'item',
@@ -112,6 +111,7 @@ function setData(myChart,data){
                 orient: 'vertical',  // vertical horizontal
                 rootLocation: {x: 'center',y: 100}, // 根节点位置  {x: 'center',y: 10}
                 nodePadding: 40,//节点间距
+                layerPadding: 40,
                 symbol: 'emptyRectangle',
                 symbolSize: 60,
                 roam: true,
