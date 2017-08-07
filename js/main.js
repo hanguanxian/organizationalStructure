@@ -1,7 +1,7 @@
 var itemStyle = {};
-    itemStyle.normal = {};
-    itemStyle.normal.borderWidth = 2;
-    itemStyle.normal.borderColor = "red";
+    itemStyle.normal = {color: "#8dc63f"};
+    itemStyle.normal.label = {textStyle: {color: "#fff"}};
+    itemStyle.emphasis = {color: "#8dc63f"};
 var itemSelected = {};
 var myChart;
 var zNodes=[

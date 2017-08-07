@@ -87,10 +87,10 @@ function setData(myChart,data){
                 return res;
             }
         },
-        toolbox: {
+        /*toolbox: {
             show : true,
             orient: 'horizontal',      // 布局方式，默认为水平布局，可选为： 'horizontal' ¦ 'vertical'
-            x: 50,  // 水平安放位置，默认为全图右对齐，可选为 'center' ¦ 'left' ¦ 'right'  
+            x: 50,  // 水平安放位置，默认为全图右对齐，可选为 'center' ¦ 'left' ¦ 'right'
             y: 50,
             itemGap:  10, //各个item之间的间隔
             itemSize: 16, //工具箱icon大小，单位（px）
@@ -104,7 +104,7 @@ function setData(myChart,data){
                     }
                 }
             }
-        },
+        },*/
         series : [
             {
                 name:'树图',
@@ -119,17 +119,16 @@ function setData(myChart,data){
                     normal: {
                         color: "#fff",
                         borderWidth: 1,
+                        borderColor: "#8dc63f",
                         label: {
                             show: true,
                             position: 'inside',
                             textStyle: {
-                                color: '#000',
-                                fontSize: 15,
-                                fontWeight:  'bolder'
+                                color: '#666767'
                             }
                         },
                         lineStyle: {
-                            color: '#000',
+                            color: '#8dc63f',
                             width: 1,
                             type: 'curve' // 'curve'|'broken'|'solid'|'dotted'|'dashed' 线的连接方式
                         }
@@ -137,14 +136,13 @@ function setData(myChart,data){
                     emphasis: {
                         color: '#fff',
                         borderWidth: 2,
-                        barBorderColor: "#fff",
-                        borderColor: "red"
+                        barBorderColor: "#8dc63f",
+                        borderColor: "#8dc63f"
                     }
                 },
                 data: data
-            }        
+            }
         ]
     };
     myChart.setOption(option,true);
 }
-
